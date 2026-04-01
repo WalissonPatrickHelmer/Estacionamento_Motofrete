@@ -35,13 +35,13 @@ Este projeto é um **app web interativo** criado com **Streamlit**, que permite 
 """
 estacionamento_motofrete/
 │
-├─ app.py # Arquivo principal do Streamlit
-├─ requirements.txt # Dependências do projeto
-├─ data/ # CSVs com os dados de estacionamentos
+├─ app.py                # Arquivo principal do Streamlit
+├─ requirements.txt      # Dependências do projeto
+├─ data/                 # CSVs com os dados de estacionamentos
 ├─ .streamlit/
-│ └─ secrets.toml # API key protegida (NÃO enviar para o GitHub)
-├─ .gitignore # Arquivos/pastas ignoradas pelo Git
-└─ README.md # Este arquivo
+│   └─ secrets.toml      # API key protegida (NÃO enviar para o GitHub)
+├─ .gitignore            # Arquivos/pastas ignoradas pelo Git
+└─ README.md             # Este arquivo
 
 """
 
