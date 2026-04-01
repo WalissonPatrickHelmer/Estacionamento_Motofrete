@@ -32,7 +32,15 @@ Este projeto é um **app web interativo** criado com **Streamlit**, que permite 
 
 ## 📂 Estrutura do Projeto
 
-"""
+Para exibir a estrutura de pastas dessa forma no arquivo README.md do seu repositório no GitHub, você deve utilizar blocos de código com a sintaxe de Markdown.
+
+Aqui estão as duas formas mais comuns de fazer isso:
+
+1. Usando Bloco de Código (Recomendado)
+Envolva o texto com três crases (```). Isso mantém a fonte monoespaçada e preserva todos os espaços e caracteres especiais.
+
+Markdown
+```text
 estacionamento_motofrete/
 │
 ├─ app.py                # Arquivo principal do Streamlit
@@ -42,8 +50,7 @@ estacionamento_motofrete/
 │   └─ secrets.toml      # API key protegida (NÃO enviar para o GitHub)
 ├─ .gitignore            # Arquivos/pastas ignoradas pelo Git
 └─ README.md             # Este arquivo
-
-"""
+```
 
 
 ---
