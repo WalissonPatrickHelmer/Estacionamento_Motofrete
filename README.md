@@ -32,7 +32,7 @@ Este projeto é um **app web interativo** criado com **Streamlit**, que permite 
 
 ## 📂 Estrutura do Projeto
 
-
+"""
 estacionamento_motofrete/
 │
 ├─ app.py # Arquivo principal do Streamlit
@@ -42,6 +42,7 @@ estacionamento_motofrete/
 │ └─ secrets.toml # API key protegida (NÃO enviar para o GitHub)
 ├─ .gitignore # Arquivos/pastas ignoradas pelo Git
 └─ README.md # Este arquivo
+"""
 
 
 ---
