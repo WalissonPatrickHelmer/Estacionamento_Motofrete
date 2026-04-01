@@ -1,0 +1,126 @@
+Documentação do Projeto: Estacionamento Motofrete BH
+1. Documentação do Agente
+
+Caso de Uso:
+O agente ajuda motofretistas de Belo Horizonte a localizar o estacionamento mais próximo com base na rua e número fornecidos pelo usuário. Ele também fornece informações adicionais como referência do local, número de vagas, horários de funcionamento e recomendações de rota via Google Maps.
+
+Persona e Tom de Voz:
+O agente se comunica de forma clara, direta e amigável, simulando um assistente urbano especializado em motofrete. Usa linguagem simples e objetiva, priorizando a utilidade prática para motofretistas.
+
+Arquitetura:
+
+Usuário insere rua e número no front-end Streamlit.
+Dados CSV locais são consultados para buscar estacionamentos.
+Caso o número seja informado, calcula-se a proximidade numérica para selecionar o estacionamento mais próximo.
+O agente envia as informações filtradas para a IA do Google Gemini gerar análises e recomendações.
+Resultado final é exibido no app, junto com link de rota no Google Maps.
+
+Segurança:
+
+A chave da API do Google Gemini está protegida via .streamlit/secrets.toml ou .env.
+Respostas da IA são baseadas nos dados mockados locais para evitar alucinações.
+Apenas as informações relevantes do CSV são enviadas para a IA, evitando exposição de dados sensíveis.
+
+📄 Template: docs/01-documentacao-agente.md
+
+2. Base de Conhecimento
+
+Os dados mockados são utilizados para alimentar o agente:
+
+Arquivo	Formato	Descrição
+data/estacionamentos.csv	CSV	Dados dos estacionamentos em BH: rua, referência, número de vagas, dias e horários de operação.
+O agente pode ser facilmente expandido adicionando mais CSVs dentro da pasta data/.
+As colunas mínimas são: LOGRADOURO, NUMERO_LOGRADOURO, REFERENCIA_LOGRADOURO, NUMERO_VAGAS_FISICAS, DIA_REGRA_OPERACAO, PERIODO_VALIDO_REGRA_OPERACAO.
+
+📄 Template: docs/02-base-conhecimento.md
+
+3. Prompts do Agente
+
+System Prompt:
+
+Você é um assistente urbano especializado em motofrete em Belo Horizonte.
+O usuário fornece rua e número.
+Forneça:
+- O estacionamento mais próximo
+- Horário de funcionamento
+- Dicas rápidas de estacionamento
+- Rota recomendada no Google Maps
+- Caso haja mais opções, liste resumidamente
+Use linguagem clara e objetiva.
+
+Exemplos de Interação:
+
+Entrada: Rua “Afonso Pena”, número “123”
+Saída: Lista do estacionamento mais próximo, referências, vagas, horários, rota Google Maps, e dicas resumidas.
+
+Tratamento de Edge Cases:
+
+Número não informado: retorna todos os estacionamentos da rua, ordenados por proximidade da lista.
+Rua não encontrada: retorna aviso de “nenhum estacionamento encontrado”.
+Número inválido: ignora número e usa somente a rua.
+
+📄 Template: docs/03-prompts.md
+
+4. Aplicação Funcional
+
+Stack:
+
+Streamlit para interface web interativa.
+Pandas para manipulação de dados CSV.
+Google Generative AI (gemini-2.5-flash) para análise e recomendações inteligentes.
+
+Arquivos:
+
+src/app.py                # Código principal do app Streamlit
+data/                     # Dados CSV dos estacionamentos
+.streamlit/secrets.toml   # API Key protegida
+
+Funcionalidades:
+
+Autocomplete de ruas.
+Busca por número opcional.
+Exibição detalhada do estacionamento.
+Link para rota no Google Maps.
+Análise da IA sobre os estacionamentos próximos.
+
+📁 Pasta: src/
+
+5. Avaliação e Métricas
+
+Métricas sugeridas para avaliar o agente:
+
+Precisão na localização do estacionamento mais próximo.
+Taxa de respostas seguras (IA não deve gerar alucinações).
+Coerência das recomendações com o perfil do usuário (motofretista).
+Performance do app (tempo de resposta aceitável para o usuário).
+
+📄 Template: docs/04-metricas.md
+
+6. Pitch
+
+Resumo do pitch (3 minutos):
+
+Problema resolvido: Dificuldade de motofretistas em encontrar estacionamentos disponíveis em BH rapidamente.
+Funcionamento: Usuário informa rua e número → busca no CSV → IA gera análise e recomendações → resultado exibido no app com rota no Google Maps.
+Diferencial: Integração inteligente entre dados locais e IA generativa para fornecer dicas práticas e precisas, com interface simples e segura.
+
+📄 Template: docs/05-pitch.md
+
+Estrutura do Repositório
+estacionamento_motofrete/
+│
+├── README.md
+├── requirements.txt
+├── data/
+│   └── estacionamentos.csv
+├── docs/
+│   ├── 01-documentacao-agente.md
+│   ├── 02-base-conhecimento.md
+│   ├── 03-prompts.md
+│   ├── 04-metricas.md
+│   └── 05-pitch.md
+├── src/
+│   └── app.py
+├── .streamlit/
+│   └── secrets.toml  # NÃO enviar para o Git
+└── .gitignore
