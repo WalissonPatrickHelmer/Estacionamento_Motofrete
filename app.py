@@ -7,9 +7,10 @@ from google import genai
 # ==============================
 # PEGAR API KEY DO STREAMLIT SECRETS
 # ==============================
-API_KEY = st.secrets["GOOGLE_API_KEY"]
+API_KEY = st.secrets.get("GOOGLE_API_KEY")
 if not API_KEY:
-    st.error("❌ API Key não encontrada. Verifique os secrets no Streamlit Cloud.")
+    st.error("❌ GOOGLE_API_KEY não encontrada nos secrets do Streamlit.")
+    st.stop()
 
 # ==============================
 # CONFIGURAÇÃO INICIAL
@@ -116,6 +117,9 @@ if buscar_btn and rua_usuario.strip() != "":
         maps_url = f"https://www.google.com/maps/dir/?api=1&destination={endereco_maps.replace(' ', '+')}"
         st.markdown(f"[🗺️ Ver rota no Google Maps]({maps_url})", unsafe_allow_html=True)
 
+        # ==============================
+        # CHAMAR IA
+        # ==============================
         st.divider()
         st.subheader("🤖 Análise Inteligente da IA")
         endereco_usuario = f"{rua_usuario} {numero_usuario}".strip()
