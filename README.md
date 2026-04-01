@@ -42,6 +42,7 @@ estacionamento_motofrete/
 │ └─ secrets.toml # API key protegida (NÃO enviar para o GitHub)
 ├─ .gitignore # Arquivos/pastas ignoradas pelo Git
 └─ README.md # Este arquivo
+
 """
 
 
