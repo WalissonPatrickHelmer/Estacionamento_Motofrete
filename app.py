@@ -5,6 +5,7 @@ import streamlit as st
 import glob
 import pandas as pd
 from google import genai
+from dotenv import load_dotenv
 
 # ==============================
 # CARREGAR VARIÁVEIS DO .ENV
