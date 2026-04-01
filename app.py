@@ -5,20 +5,18 @@ import pandas as pd
 from google import genai
 
 # ==============================
+# PEGAR API KEY DO STREAMLIT SECRETS
+# ==============================
+API_KEY = st.secrets["GOOGLE_API_KEY"]
+if not API_KEY:
+    st.error("❌ API Key não encontrada. Verifique os secrets no Streamlit Cloud.")
+
+# ==============================
 # CONFIGURAÇÃO INICIAL
 # ==============================
 st.set_page_config(page_title="Motofrete BH", layout="wide")
 st.title("🏍️ Estacionamento Motofrete - Belo Horizonte")
 st.write("Digite sua rua e número para encontrar o estacionamento mais próximo e receber dicas da IA.")
-
-# ==============================
-# PEGAR API KEY DO SECRETS
-# ==============================
-try:
-    API_KEY = st.secrets["GOOGLE_API_KEY"]
-except KeyError:
-    st.error("❌ API Key não encontrada. Configure em Streamlit Secrets.")
-    st.stop()
 
 # ==============================
 # CONFIGURAR GOOGLE GENAI
@@ -95,13 +93,10 @@ if buscar_btn and rua_usuario.strip() != "":
         if numero_usuario.strip() != "":
             try:
                 numero_usuario_int = int(numero_usuario)
-                # Converter coluna para número inteiro quando possível
                 resultado["NUMERO_INT"] = pd.to_numeric(resultado["NUMERO_LOGRADOURO"], errors="coerce")
-                # Calcular diferença absoluta
                 resultado["DISTANCIA_NUMERO"] = resultado["NUMERO_INT"].apply(
                     lambda x: abs(x - numero_usuario_int) if pd.notna(x) else float('inf')
                 )
-                # Ordenar pelo número mais próximo
                 resultado = resultado.sort_values("DISTANCIA_NUMERO")
             except ValueError:
                 st.warning("Número informado inválido. Buscando somente por rua.")
@@ -121,9 +116,6 @@ if buscar_btn and rua_usuario.strip() != "":
         maps_url = f"https://www.google.com/maps/dir/?api=1&destination={endereco_maps.replace(' ', '+')}"
         st.markdown(f"[🗺️ Ver rota no Google Maps]({maps_url})", unsafe_allow_html=True)
 
-        # ==============================
-        # CHAMAR IA
-        # ==============================
         st.divider()
         st.subheader("🤖 Análise Inteligente da IA")
         endereco_usuario = f"{rua_usuario} {numero_usuario}".strip()
