@@ -1,19 +1,8 @@
 # app.py
-import os
-from dotenv import load_dotenv
 import streamlit as st
 import glob
 import pandas as pd
 from google import genai
-from dotenv import load_dotenv
-
-# ==============================
-# CARREGAR VARIÁVEIS DO .ENV
-# ==============================
-load_dotenv()
-API_KEY = os.getenv("GOOGLE_API_KEY")
-if not API_KEY:
-    st.error("❌ API Key não encontrada. Verifique seu arquivo .env")
 
 # ==============================
 # CONFIGURAÇÃO INICIAL
@@ -21,6 +10,15 @@ if not API_KEY:
 st.set_page_config(page_title="Motofrete BH", layout="wide")
 st.title("🏍️ Estacionamento Motofrete - Belo Horizonte")
 st.write("Digite sua rua e número para encontrar o estacionamento mais próximo e receber dicas da IA.")
+
+# ==============================
+# PEGAR API KEY DO SECRETS
+# ==============================
+try:
+    API_KEY = st.secrets["GOOGLE_API_KEY"]
+except KeyError:
+    st.error("❌ API Key não encontrada. Configure em Streamlit Secrets.")
+    st.stop()
 
 # ==============================
 # CONFIGURAR GOOGLE GENAI
