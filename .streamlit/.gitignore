@@ -1,0 +1,16 @@
+# Ignorar secrets do Streamlit
+.streamlit/secrets.toml
+
+# Ignorar arquivos .env
+.env
+
+# Ignorar pastas de cache e dados temporários
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignorar pastas do sistema e IDEs
+.vscode/
+.idea/
+.DS_Store
